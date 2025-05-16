@@ -123,4 +123,5 @@ Feel free to fork, raise issues, or submit PRs to improve this project!
 
 ## 📝 Author
 Mozeel Vanwani | IIT Kharagpur CSE
+
 Email: [vanwani.mozeel@gmail.com]
