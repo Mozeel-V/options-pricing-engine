@@ -1,19 +1,17 @@
-# main.py
-
 from app.data_fetcher import get_spot_price_and_volatility
 from app.utils import time_to_expiry
-from app.pricing import black_scholes_price, binomial_price
+from app.pricing import black_scholes_price, binomial_price, monte_carlo_barrier, monte_carlo_asian
 from app.plot_helpers import plot_price_vs_strike, plot_price_vs_volatility
 import matplotlib.pyplot as plt
 
 def main():
     print("=== Options Pricing Engine (CLI) ===")
-    
+
     ticker = input("Enter stock ticker (e.g. AAPL): ").strip()
     strike = float(input("Enter strike price: "))
     expiry = input("Enter expiry date (YYYY-MM-DD): ").strip()
     r = float(input("Enter risk-free rate (e.g. 0.06): "))
-    option_style = input("Option style (European/American): ").strip().capitalize()
+    option_style = input("Option style (European/American/Barrier/Asian): ").strip().capitalize()
     option_type = input("Option type (call/put): ").strip().lower()
 
     try:
@@ -24,8 +22,14 @@ def main():
             price = black_scholes_price(S, strike, T, r, sigma, option_type)
         elif option_style == "American":
             price = binomial_price(S, strike, T, r, sigma, option_type, steps=100, american=True)
+        elif option_style == "Barrier":
+            barrier_type = input("Barrier type (up-and-in/up-and-out/down-and-in/down-and-out): ").strip().lower()
+            barrier_level = float(input("Barrier level: "))
+            price = monte_carlo_barrier(S, strike, T, r, sigma, option_type, barrier_type, barrier_level, simulations=10000)
+        elif option_style == "Asian":
+            price = monte_carlo_asian(S, strike, T, r, sigma, option_type, simulations=10000)
         else:
-            raise ValueError("Invalid option style. Choose 'European' or 'American'.")
+            raise ValueError("Invalid option style.")
 
         print(f"\nSpot Price: ${S:.2f}")
         print(f"Volatility (1Y): {sigma*100:.2f}%")
