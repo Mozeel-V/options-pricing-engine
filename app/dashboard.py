@@ -1,9 +1,9 @@
 # app/dashboard.py
 
 import streamlit as st
-from app.data_fetcher import get_spot_price_and_volatility
-from app.utils import time_to_expiry
-from app.pricing import black_scholes_price
+from data_fetcher import get_spot_price_and_volatility
+from utils import time_to_expiry
+from pricing import black_scholes_price
 
 def main():
     st.set_page_config(page_title="Options Pricing Engine", layout="centered")
