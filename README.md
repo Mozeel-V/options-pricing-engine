@@ -1,7 +1,7 @@
 # Options Pricing Engine
 
 A simple and interactive European Options Pricing Engine built with Python.  
-Supports **Call** and **Put** options priced using the **Black-Scholes model**.
+Supports **Call** and **Put** options priced using the **Black-Scholes model** for European options and the **Binomial Tree model** for American options.
 
 ---
 
@@ -10,8 +10,11 @@ Supports **Call** and **Put** options priced using the **Black-Scholes model**.
 - Fetches **spot price** and **1-year historical volatility** automatically from Yahoo Finance using the stock ticker.
 - Takes **strike price**, **expiry date**, and **risk-free rate** as user inputs.
 - Calculates **time to expiry** in years.
-- Supports both **European call** and **put** options.
-- Provides a clean **Streamlit dashboard** for interactive pricing.
+- Supports both **European and American** option styles for **call** and **put** options.
+- Interactive and clean **Streamlit dashboard** with input sidebar and visualization section.
+- Visualizes option price sensitivity:
+    - **Price vs Strike Price**
+    - **Price vs Volatility**
 - CLI fallback available for quick testing.
 
 ---
@@ -22,19 +25,20 @@ Supports **Call** and **Put** options priced using the **Black-Scholes model**.
 options-pricing-engine/
 ├── app/
 │   ├── __init__.py
-│   ├── pricing.py           # Black-Scholes formulas
+│   ├── pricing.py           # Black-Scholes and Binomial Tree formulae
+│   ├── plot_helpers.py      # For visualization using matplotlib
 │   ├── data_fetcher.py      # Spot price, volatility from yfinance
 │   ├── dashboard.py         # Streamlit UI
 │   └── utils.py             # Helpers (e.g. days to expiry)
 ├── notebooks/
 │   └── analysis.ipynb       # EDA + plots
 ├── tests/
-│   └── test_pricing.py      # Unit tests for formulas
+│   └── test_pricing.py      # Unit tests for formulae
 ├── main.py                  # Entry point for running CLI version
 ├── requirements.txt         # All required packages
-├── directory_structure.txt  # This file
-├── .gitignore
-└── README.md
+├── directory_structure.txt  # Maintains directory structure in an organized way
+├── .gitignore               # Standard .gitignore for python projects
+└── README.md                # This file
 ```
 
 ---
@@ -55,22 +59,33 @@ pip install -r requirements.txt
 ```bash
 streamlit run app/dashboard.py
 ```
-This will open a web UI where you can input parameters and get option prices interactively.
+This opens a web UI for interactive option pricing and visualization.
 
 ### 4. Alternatively, you can run the CLI (Command-Line Interface) tool (basic)
 ```bash
 python main.py
 ```
-Follow the prompts to input ticker, strike, expiry, risk-free rate, and option type.
+Follow the prompts to input ticker, strike, expiry, risk-free rate, and option type and get option prices.
 
 ---
 
-## 🧮 Black-Scholes Model
+## 🧮 Pricing Models used
 
-The engine uses the Black-Scholes formula to price European options:
-- Inputs: Spot price (S), Strike price (K), Time to expiry (T), Risk-free rate (r), Volatility (σ), Option type (call/put).
-- Outputs: Option price.
-Volatility is calculated as the annualized standard deviation of daily log returns over the past 1 year.
+- Black-Scholes Model for European options
+Inputs: Spot price (S), Strike price (K), Time to expiry (T), Risk-free rate (r), Volatility (σ), Option type (call/put)
+Output: Option price
+Volatility is computed as annualized std deviation of daily log returns over 1 year.
+
+- Binomial Tree Model for American options
+Calculates price using a discrete-time lattice, accounting for early exercise feature unique to American options.
+
+---
+
+## 📊 Visualization
+
+Price vs Strike Price: Shows how option price changes when varying strike price, holding other parameters fixed.
+
+Price vs Volatility: Shows sensitivity of option price to changes in volatility, keeping other inputs constant.
 
 ---
 
@@ -94,9 +109,9 @@ It’ll run both tests and show PASSED if your pricing logic is correct
 
 - Expiry date format must be YYYY-MM-DD.
 
-- Supports only European options currently.
+- Supports both European and American options.
 
-- The project can be extended with Greeks calculation, American options, and more.
+- The project can be extended with Greeks calculation and visualizations, and more.
 
 ---
 

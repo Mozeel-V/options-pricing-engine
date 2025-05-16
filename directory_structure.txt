@@ -1,14 +1,15 @@
 options-pricing-engine/
 ├── app/
 │   ├── __init__.py
-│   ├── pricing.py           # Black-Scholes formulas
+│   ├── pricing.py           # Black-Scholes and Binomial Tree formulae
+│   ├── plot_helpers.py      # For visualization using matplotlib
 │   ├── data_fetcher.py      # Spot price, volatility from yfinance
 │   ├── dashboard.py         # Streamlit UI
 │   └── utils.py             # Helpers (e.g. days to expiry)
 ├── notebooks/
 │   └── analysis.ipynb       # EDA + plots
 ├── tests/
-│   └── test_pricing.py      # Unit tests for formulas
+│   └── test_pricing.py      # Unit tests for formulae
 ├── main.py                  # Entry point for running CLI version
 ├── requirements.txt         # All required packages
 ├── directory_structure.txt  # This file
