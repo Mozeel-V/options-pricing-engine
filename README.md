@@ -6,7 +6,7 @@
 [![Tests](https://img.shields.io/badge/Tested%20with-Pytest-6DB33F?logo=pytest&logoColor=white)](https://docs.pytest.org/)
 [![Status](https://img.shields.io/badge/Build-Active-blue)]()
 
-A simple and interactive European Options Pricing Engine built with Python. 
+A simple and interactive Options Pricing Engine built with Python. 
 Supports **European, American, Asian, and Barrier** options using mathematical models like **Black-Scholes**, **Binomial Tree**, and **Monte Carlo simulation**.
 
 ---
